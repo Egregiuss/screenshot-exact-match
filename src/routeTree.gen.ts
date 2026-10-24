@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlayRouteImport } from './routes/play'
+import { Route as PuzzlesRouteImport } from './routes/puzzles'
+import { Route as LessonsIndexRouteImport } from './routes/lessons.index'
+import { Route as LessonsIdRouteImport } from './routes/lessons.$id'
+import { Route as MastersIndexRouteImport } from './routes/masters.index'
+import { Route as MastersIdRouteImport } from './routes/masters.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlayRoute = PlayRouteImport.update({
+  id: '/play',
+  path: '/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PuzzlesRoute = PuzzlesRouteImport.update({
+  id: '/puzzles',
+  path: '/puzzles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LessonsIndexRoute = LessonsIndexRouteImport.update({
+  id: '/lessons/',
+  path: '/lessons/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LessonsIdRoute = LessonsIdRouteImport.update({
+  id: '/lessons/$id',
+  path: '/lessons/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MastersIndexRoute = MastersIndexRouteImport.update({
+  id: '/masters/',
+  path: '/masters/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MastersIdRoute = MastersIdRouteImport.update({
+  id: '/masters/$id',
+  path: '/masters/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/play': typeof PlayRoute
+  '/puzzles': typeof PuzzlesRoute
+  '/lessons/$id': typeof LessonsIdRoute
+  '/masters/$id': typeof MastersIdRoute
+  '/lessons/': typeof LessonsIndexRoute
+  '/masters/': typeof MastersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/play': typeof PlayRoute
+  '/puzzles': typeof PuzzlesRoute
+  '/lessons/$id': typeof LessonsIdRoute
+  '/masters/$id': typeof MastersIdRoute
+  '/lessons': typeof LessonsIndexRoute
+  '/masters': typeof MastersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/play': typeof PlayRoute
+  '/puzzles': typeof PuzzlesRoute
+  '/lessons/$id': typeof LessonsIdRoute
+  '/masters/$id': typeof MastersIdRoute
+  '/lessons/': typeof LessonsIndexRoute
+  '/masters/': typeof MastersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/play'
+    | '/puzzles'
+    | '/lessons/$id'
+    | '/masters/$id'
+    | '/lessons/'
+    | '/masters/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/play'
+    | '/puzzles'
+    | '/lessons/$id'
+    | '/masters/$id'
+    | '/lessons'
+    | '/masters'
+  id:
+    | '__root__'
+    | '/'
+    | '/play'
+    | '/puzzles'
+    | '/lessons/$id'
+    | '/masters/$id'
+    | '/lessons/'
+    | '/masters/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PlayRoute: typeof PlayRoute
+  PuzzlesRoute: typeof PuzzlesRoute
+  LessonsIdRoute: typeof LessonsIdRoute
+  MastersIdRoute: typeof MastersIdRoute
+  LessonsIndexRoute: typeof LessonsIndexRoute
+  MastersIndexRoute: typeof MastersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/play': {
+      id: '/play'
+      path: '/play'
+      fullPath: '/play'
+      preLoaderRoute: typeof PlayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/puzzles': {
+      id: '/puzzles'
+      path: '/puzzles'
+      fullPath: '/puzzles'
+      preLoaderRoute: typeof PuzzlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lessons/': {
+      id: '/lessons/'
+      path: '/lessons'
+      fullPath: '/lessons/'
+      preLoaderRoute: typeof LessonsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lessons/$id': {
+      id: '/lessons/$id'
+      path: '/lessons/$id'
+      fullPath: '/lessons/$id'
+      preLoaderRoute: typeof LessonsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/masters/': {
+      id: '/masters/'
+      path: '/masters'
+      fullPath: '/masters/'
+      preLoaderRoute: typeof MastersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/masters/$id': {
+      id: '/masters/$id'
+      path: '/masters/$id'
+      fullPath: '/masters/$id'
+      preLoaderRoute: typeof MastersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PlayRoute: PlayRoute,
+  PuzzlesRoute: PuzzlesRoute,
+  LessonsIdRoute: LessonsIdRoute,
+  MastersIdRoute: MastersIdRoute,
+  LessonsIndexRoute: LessonsIndexRoute,
+  MastersIndexRoute: MastersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
